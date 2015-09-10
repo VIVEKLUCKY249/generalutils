@@ -1,1 +1,25 @@
+## First create an external tool in Gedit >> Manage External Tools with below code and remember it's name:
+
+#!/bin/bash
+origPath=$GEDIT_CURRENT_DOCUMENT_URI
+if [[ $origPath == *"smb"* ]]
+then
+	finalPath=`php -f /var/www/html/pathswapcmd.php smb_path=$origPath`;
+else
+	finalPath=$origPath;
+fi
+## echo -n $finalPath;
+echo -n $finalPath | xclip -sel clip;
+exit;
+
+## Now create php script in www folder which is executable with below code and name it "pathswapcmd.php":
+<?php
+$smbpath = explode('=', $argv[1]);
+$pathData = parse_url($smbpath[1]);
+$ip = $pathData['host'];
+$uri = ltrim($pathData['path'],'/');
+$uri = substr($uri, 0, strrpos( $uri, '/'));
+$rungvfspath = "/run/user/1000/gvfs/smb-share:server=$ip,share=$uri";
+echo $rungvfspath;exit;
+?>
 
