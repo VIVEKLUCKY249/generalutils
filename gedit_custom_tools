@@ -23,3 +23,4 @@ $rungvfspath = "/run/user/1000/gvfs/smb-share:server=$ip,share=$uri";
 echo $rungvfspath;exit;
 ?>
 
+## As a result now your custom external tool to copy current document's path is ready, enjoy.
