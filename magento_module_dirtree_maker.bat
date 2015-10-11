@@ -3,6 +3,9 @@ REM Script to create multiple directory structure for Magento Modules
 SETLOCAL EnableDelayedExpansion
 SETLOCAL EnableExtensions
 
+SET /P packageName=Package Name ?:
+SET /P moduleName=Module Name ?:
+
 SET "TAB=	"
 SET moduleApp="Magento Module\app"
 SET moduleSkin="Magento Module\skin"
@@ -19,12 +22,12 @@ cd %moduleApp%/etc/modules/
 echo ^<?xml version="1.0" encoding="UTF-8"?^>
 echo ^<config^>
 	echo %tab%^<modules^>
-		echo %tab%%tab%^<Vivek_Multigrid^>
+		echo %tab%%tab%^<%packageName%_%moduleName%^>
 			echo %tab%%tab%%tab%^<active^>true^</active^>
 			echo %tab%%tab%%tab%^<codePool^>local^</codePool^>
-		echo %tab%%tab%^</Vivek_Multigrid^>
+		echo %tab%%tab%^</%packageName%_%moduleName%^>
 	echo %tab%^</modules^>
 echo ^</config^>
-) > "module.xml"
+) > "%packageName%_%moduleName%.xml"
 
 pause
