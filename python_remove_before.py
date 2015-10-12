@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+## Can be used as Geany format send to command
 import sys
 import re
 from sys import stdin
