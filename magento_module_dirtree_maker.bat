@@ -7,10 +7,16 @@ SET /P packageName=Package Name ?:
 SET /P moduleName=Module Name ?:
 
 SET "TAB=	"
-SET moduleApp="Magento Module\app"
-SET moduleSkin="Magento Module\skin"
-SET moduleJs="Magento Module\js"
-SET moduleLib="Magento Module\lib"
+md "Magento Module"
+
+cd "Magento Module"
+md %packageName%/%moduleName%
+cd %packageName%/%moduleName%
+
+SET moduleApp="app"
+SET moduleSkin="skin"
+SET moduleJs="js"
+SET moduleLib="lib"
 
 md %moduleApp%/code/local
 md %moduleApp%/etc/modules
