@@ -35,7 +35,12 @@ Multiple file-type search
 grep -nHIrF --include=*.{phtml,js} -- function fblogin (in directory: /run/user/1000/gvfs/smb-share:server=192.168.0.160,share=226/mag/cookpack/)
 
 To recursively search in subdirectories and list out filenames along with line numbers
-grep -Hrn 'search term' path/to/files
+grep -Hrn "search term" --include \*.<ext> path/to/files
+grep -Hrn "Subtotal (Excl. Tax)" --include \*.php .
+grep -Hrn "Subtotal (Excl. Tax)" --include \*.php /var/www/226/mag/petstore/
+grep -Hrn "Subtotal (Excl. Tax)" --include \*.php /var/www/226/mag/petstore/ >> search_result.txt
+mv search_result.txt /var/www/226/mag/
+sudo mv search_result.txt /var/www/226/mag/
 
 find /path -type f -exec grep -l "string" {} \;
 grep -Rin string *
@@ -80,7 +85,13 @@ rm ~/.mozilla/firefox/*.default/*.sqlite ~/.mozilla/firefox/*default/sessionstor
 rm -r ~/.cache/mozilla/firefox/*.default/*
 
 Local website Pre-installation permissions
+sudo chmod -R 777 <targetdir_path>
+. means current directory
+/ means root directory
+~ means home directory
+
 ## sudo chmod -R 777 /var/www
+## sudo chmod -R 777 /var/www/html/magento1910
 
 Only if local root is in "/opt/lampp/htdocs"
 sudo find /opt/lampp/htdocs -type d -exec chmod 755 {} \;
@@ -281,6 +292,10 @@ rename 'y/a-z/A-Z/' *
 --Example
 rename 's/Elite/Perception/' *.xml
 
+FIND AND REPLACE IN MULTIPLE FILES IN SIDE DIRCTORY
+grep -rl Sns Sns/ | xargs sed -i 's/Sns/Perc/g'
+sed -i 's/Sns/Perc/g' *.xml
+
 Compression commands
 Tar.xz max compression ratio
 tar -cf - <dir_name> | xz -9 -c - > <file_name>.tar.xz
@@ -400,3 +415,68 @@ with permission override
 sudo zip -r <filename>.zip <foldername>/
 sudo zip -r skin.zip skin/
 sudo zip -r app.zip app/
+
+FIND AND REPLACE IN MULTIPLE FILES IN SIDE DIRCTORY
+grep -rl Sns Sns/ | xargs sed -i 's/Sns/Perc/g'
+in current directory
+sed -i 's/Sns/Perc/g' *.xml
+
+Compress to zip from current directory
+zip -r cookpack.zip cookpack/
+zip -r <foldername>.zip <foldername>/
+Compress to zip from anywhere
+zip -r <customname>.zip <path_to_foldername>/
+
+Reset Permissions for Magento
+find ./ -type f | xargs chmod 644
+find ./ -type d | xargs chmod 755
+chmod +x mage
+chmod 550 pear
+
+Add user to group to get all rights and permissions
+sudo adduser <username> <groupname>
+sudo adduser ubuntu www-data
+
+Ubuntu Update Google Chrome to Latest available version
+
+Uninstall Chrome
+sudo apt-get remove google-chrome-stable
+sudo apt-get purge google-chrome-stable
+sudo apt-get autoremove
+--Optional to remove plugins
+rm ~/.config/google-chrome/ -rf
+
+Install latest Chrome (x86 system)
+sudo apt-get install libxss1 libappindicator1 libindicator7
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
+sudo dpkg -i google-chrome*.deb
+
+Install latest Chrome (x64 system)
+sudo apt-get install libxss1 libappindicator1 libindicator7
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome*.deb
+
+Chrome repo
+http://www.ubuntuupdates.org/ppa/google_chrome
+
+Vim Commands Set
+Hit the Esc key; that goes into command mode. Then you can type
+	:q to quit (short for :quit)
+	:q! to quit without saving (short for :quit!)
+	:wq to write and quit (think write and quit)
+	:wq! to write and quit even if file has only read permission (if file does not have write permission: force write)
+	:x to write and quit (shorter than :wq)
+	:qa to quit all (short for :quitall)
+
+When you press :, a : will appear at the bottom of the screen.
+
+Or you can press Esc ZZ (Esc Shift+Z Shift+Z) to write/save if the file was changed, then quit.
+
+Or if you don't want to save changes you can use ZQ instead.
+
+Vim has extensive help, so type Esc:helpReturn and you will have all your answers and even a neat tutorial.
+
+Get Internal Ip of Ubuntu system
+ip route get 8.8.8.8 | awk '{print $NF; exit}'
+ifconfig | perl -nle'/dr:(\S+)/ && print $1'
+hostname -I
