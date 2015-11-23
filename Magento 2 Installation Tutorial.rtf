@@ -1,4 +1,4 @@
-Follow Below steps to Errorlessly install Magento 2 and Configure the same:
+Follow Below steps to Errorlessly install Magento 2 and Configure the same without Sample Data:
 
 First of all check if you have right versions of tools and engines installed as below:
 PHP 5.5 or higher
@@ -20,4 +20,18 @@ and provide full permissions to the same directory.
 Install Composer following anyone of the below links depending on your OS:
 https://getcomposer.org/doc/00-intro.md#installation-windows - Windows XP or higher
 http://symfony.com/doc/current/cookbook/composer.html - Linux or Mac
+Note: Composer commands are generally fired from terminal unless they are included in the context menus like in "Windows OS".
 
+Then navigate to your root Magento 2 directory(magento-2 or whatever name you have given) and run "composer install" command.
+
+Then Login to magento.com and go to Developers >> Secure Keys >> Generate Both Private and Public keys by providing your "Name".
+
+These keys are your authentication details for accessing "Magento Composer Repository(repo.magento.com)" and downloading libraries therein.
+
+Now in your root folder run the "composer update" command and allow it to download the required libraries from Magento Repo.
+
+Then again provide full permissions to the Magento root directory.
+
+Create a blank database through MySQL Terminal or PHPMyAdmin.
+
+Then run the Magento setup into the Browser and provide necessary details until completion.
