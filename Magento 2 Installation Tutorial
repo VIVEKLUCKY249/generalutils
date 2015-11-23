@@ -1,1 +1,23 @@
+Follow Below steps to Errorlessly install Magento 2 and Configure the same:
+
+First of all check if you have right versions of tools and engines installed as below:
+PHP 5.5 or higher
+MySQL 5.6 or higher
+Apache 2.2 or 2.4
+Phpmyadmin 4.0 or higher
+
+Then check if apache configuration has below settings or not:
+For all directory settings/permissions:
+	AllowOverride All
+	Require all granted
+	
+Then download Magento 2.0.0. source files from following link:
+https://www.magentocommerce.com/download
+
+Then extract it into a simplistic folder name like "magento-2" or "magento_2"
+and provide full permissions to the same directory.
+
+Install Composer following anyone of the below links depending on your OS:
+https://getcomposer.org/doc/00-intro.md#installation-windows - Windows XP or higher
+http://symfony.com/doc/current/cookbook/composer.html - Linux or Mac
 
