@@ -44,3 +44,26 @@ foreach ($product_ids as $product_id) {
 		}
 	}
 }
+
+## OR ##
+
+## $product = Mage::getModel('catalog/product')->load($product_id);
+$product = Mage::getModel('catalog/product')->load(897);
+$values = array();
+foreach ($product->getOptions() as $o) {
+	if($o->getTitle() == "New Custom Title") {
+		$p = $o->getValues();
+		foreach($p as $v) {
+			if($v->getTitle() == "Ja") {
+				$values[$v->getId()]['option_type_id'] = $v->getId();
+				$values[$v->getId()]['title'] = 'Ja';
+				$values[$v->getId()]['price'] = floatval(120);
+				$values[$v->getId()]['price_type']= 'fixed';
+				$values[$v->getId()]['sku'] = 'custom_sku123';
+				$v->setValues($values);
+				$v->saveValues();
+			}
+		}
+	}
+}
+## $product->save();
