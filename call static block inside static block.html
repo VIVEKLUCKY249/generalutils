@@ -1,0 +1,14 @@
+<!--To output a static block inside another static block, you basically can do two things:
+Insert a Widget:
+	in the Editor toolbar, click on insert Widget (2. from the left)
+	Choose Static Block
+	Choose the Block you want to insert
+
+you should end up with a code like this (if you hide the wysiwyg editor)-->
+
+    {{widget type="cms/widget_block" template="cms/widget/static_block/default.phtml" block_id="1"}}
+
+    <!--Insert a cms Block directly:-->
+
+    {{block type="cms/block" block_id="your_block_id"}}
+
