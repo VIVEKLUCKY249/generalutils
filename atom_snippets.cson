@@ -1,0 +1,39 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+
+#Javascript Snippets
+'.source.js':
+  'console.log':
+    'prefix': 'log'
+    'body': 'console.log(${1:"crash"});$2'
+
+#PHP Snippets
+'.source.php':
+  'Echo variable and terminate execution':
+    'prefix': 'ecodie'
+    'body': 'echo "<pre/>";print_r(${1:resource});die(\'${2:message}\');$3'
+  'Print variable/resource and terminate execution':
+    'prefix': 'prinexit'
+    'body': 'echo "<pre/>";print_r(${1:resource});exit(\'${2:message}\');$3'
+  'Log variable/resource to a file':
+    'prefix': 'customdebugvar'
+    'body': '$myfile = fopen("debug.log", "a+") or die("Unable to open file!");\nfwrite($myfile, print_r(${1:resource}, true));\nfclose($myfile);\nunset($myfile);$2'
