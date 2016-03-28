@@ -139,3 +139,7 @@ Find and replace xml tag values:
 Find and Remove singleline comments(lines starting with '//' or '##' or '#')
 	Find: ^\s*//.*$ or ^\s*##.*$ or ^\s*#.*$
 	Replace with:
+
+Find and replace all PHP Short Tags with PHP Full Tags
+	Find: <\?[^p](.*) or /<?[^p\n](Note: to match newline just after '<?')
+	Replace with: <?php\n\1
