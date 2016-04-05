@@ -149,3 +149,13 @@ Find: function\s+(.*?)\)\s*{
 Replace with: function \1\) {\n\tMage::log\(Varien_Debug::backtrace\(true, false\), null, 'mpdfDebug.log'\);
 OR
 Replace with: function \1\) {\n\techo Varien_Debug::backtrace\(true, true\); exit;
+
+Create module file path from Class name in Magento 1.9.x/1.x versions
+Step 1 Non Regex replace mode
+Find: "_"
+Replace with: "/"
+Step 2 Regex replace mode
+Find: "^(.+)$"
+Replace with: "public_html/app/code/local/\1" (For live site)
+Or
+Replace with: "app/code/local/\1" (For local site)
