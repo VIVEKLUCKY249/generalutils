@@ -480,3 +480,6 @@ Get Internal Ip of Ubuntu system
 ip route get 8.8.8.8 | awk '{print $NF; exit}'
 ifconfig | perl -nle'/dr:(\S+)/ && print $1'
 hostname -I
+
+Symbolic Link for Phpmyadmin
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf && sudo a2enconf phpmyadmin && sudo service apache2 reload
