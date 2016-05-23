@@ -159,3 +159,9 @@ Find: "^(.+)$"
 Replace with: "public_html/app/code/local/\1" (For live site)
 Or
 Replace with: "app/code/local/\1" (For local site)
+
+Match a line containing console.log("anything") or alert("any") and not window.alert("any")
+Find: ^(?!.*window\.).*\b(console\.log|alert\().*$
+/^(?!.*window\.).*\b(console\.log|alert\().*$/gm
+g - Global regex pattern
+m - Multi-line matching
