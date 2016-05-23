@@ -24,3 +24,8 @@ echo $rungvfspath;exit;
 ?>
 
 ## As a result now your custom external tool to copy current document's path is ready, enjoy.
+
+## Shell script to remove trailing spaces from any file start
+#!/bin/sh
+sed 's/[[:blank:]]*$//'
+## Shell script to remove trailing spaces from any file end
