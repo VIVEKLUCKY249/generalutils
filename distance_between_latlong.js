@@ -8,8 +8,7 @@ function distance(lat1, lon1, lat2, lon2, unit = null) {
 	dist = Math.acos(dist)
 	dist = dist * 180/Math.PI
 	dist = dist * 60 * 1.1515
-	if (unit=="K") { dist = dist * 1.609344 } //In kilometers
-	if (unit=="N") { dist = dist * 0.8684 } //In Nautical Miles
-	//if (unit=="M") { dist = dist * 0.6214 }
+	if (unit == "K") { dist = dist * 1.609344 } //In Kilometers
+	if (unit == "N") { dist = dist * 0.8684 } //In Nautical Miles
 	return dist
 }
