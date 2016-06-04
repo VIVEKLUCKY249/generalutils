@@ -709,3 +709,12 @@ ffmpeg -i tagmeapp-video.mp4 -vcodec libtheora -acodec libvorbis -ab 128k -b 350
 Clear and Reset Terminal Completely
 history -c && history -w && clear && reset;
 history -c && history -w && clear;
+
+Ubuntu find process name of certain program and kill it.
+ps aux | grep -i <program_name> | awk {'print $2'} | xargs kill -9
+kill -9 `pgrep -lf <office_name> | awk {'print $1'}`
+Example:
+ps aux | grep -i office | awk {'print $2'} | xargs kill -9
+kill -9 `pgrep -lf soffice.bin | awk {'print $1'}`
+pkill soffice.bin
+ps -e | grep writer
