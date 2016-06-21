@@ -483,3 +483,67 @@ hostname -I
 
 Symbolic Link for Phpmyadmin
 sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf && sudo a2enconf phpmyadmin && sudo service apache2 reload
+
+Compress and encrypt to "tar.gz"
+tar czvf -e daily_usage_scripts_21052016.tar.gz daily_usage_scripts/ | \
+openssl enc -aes-256-cbc -e > out.tar.gz.enc
+
+or
+
+tar czvf -r daily_usage_scripts/ | gpg --encrypt daily_usage_scripts_21052016.tar.gz
+
+Remove blank spaces after line in file
+#!/bin/sh
+sed 's/[[:blank:]]*$//'
+
+Find and copy files to other directory:
+Find files by name
+find . -iname '*pstorelocator*' \( -type d -o -type f \)
+find and copy:
+find . -iname '*pstorelocator*' \( -type d -o -type f \) -exec cp {} /path/to/copy/to \;
+
+Get a list of all files in directory and it's subdirectories recursively
+ls -alR > <filename>
+ls -alR > fileslist.txt
+ls -R > modfiles.txt
+sudo ls -R /path/to/target/directory > <filename>
+
+Ubuntu find process name of certain program and kill it.
+ps aux | grep -i <program_name> | awk {'print $2'} | xargs kill -9
+kill -9 `pgrep -lf <office_name> | awk {'print $1'}`
+Example:
+ps aux | grep -i office | awk {'print $2'} | xargs kill -9
+kill -9 `pgrep -lf soffice.bin | awk {'print $1'}`
+pkill soffice.bin
+ps -e | grep writer
+
+Ubuntu cleanup ".DS_Store" and "tmp/" files from terminal
+cd
+find . -name ".DS_Store" -print0 | xargs -0 rm -rf
+sudo rm -r /tmp/*
+sudo rm -r ~/.cache/*
+sudo rm -rf ~/.thumbs/*
+sudo updatedb
+
+Go to any directory or command's main installation directory from command-line
+cd $(whereis <command_name> or <directory_name> or <component_name> | cut -d ' ' -f2 | xargs dirname)
+Note: It will take you to it's parent directory atmost.
+Examples:
+cd $(which node_modules | xargs dirname)
+cd $(whereis node_modules | cut -d ' ' -f2)
+cd $(whereis find | cut -d ' ' -f2 | xargs dirname)
+cd $(whereis node_modules | cut -d ' ' -f2 | xargs dirname)
+cd $(whereis bower | cut -d ' ' -f2 | xargs dirname
+
+Remove enerything before last occurring(Left to right) colon/semicolon
+echo <any_text_with_quotes> | sed 's/.*://'
+echo <any_text_with_quotes> | sed 's/.*;//'
+Examples
+echo 'hd_ma_prod_customer_ro:*:123456789:john.doe' | sed 's/.*://'
+echo 'hd_ma_prod_customer_ro:*:123456789;john.doe' | sed 's/.*://'
+
+Clear commandline history and exit the terminal
+cat /dev/null > ~/.bash_history && history -c && exit
+cat /dev/null > ~/.bash_history && history -w && exit
+cat /dev/null > ~/.bash_history && history -w && history -c && exit
+cat /dev/null > ~/.bash_history && history -c && history -w && exit
