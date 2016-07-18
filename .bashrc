@@ -126,7 +126,8 @@ replinallfiles() {
 # alias replinfiles=replinallfiles
 
 rendirs() {
-	find . -depth -type d -not -name '.' -exec rename "s/$1/$2/" {} + \;
+	shopt -s globstar
+	rename "s/$1/$2/" **
 }
 
 listfiles() {
@@ -140,11 +141,12 @@ makelistoffiles() {
 
 deletebakfiles() {
 	find . -type f -name '*~' -delete
+	find . -type f -name '.*' -delete
 }
 
 clearlocal() {
 	rm -rf /var/www/html/$1/var/cache/*
-	rm -rf /var/www/html/$1/var/session/*
+	#rm -rf /var/www/html/$1/var/session/*
 	rm -R -f /var/www/html/$1/media/catalog/product/cache
 	rm -rf /var/www/html/$1/var/debug/*
 	rm -rf /var/www/html/$1/var/log/*
@@ -167,4 +169,19 @@ clearErrorLog() {
 openErrorLog() {
 	sudo gedit /var/log/apache2/error.log
 }
+
+rename_mage_module() {
+	find ./ -type f -readable -writable -exec sed -i "s/$1/$2/g" {} \;
+	shopt -s globstar && rename "s/$1/$2/" **;
+	find . -name "*$1*" -exec bash -c "mv $0 ${0/$1/$2}" {} \;
+}
+
+<<"COMMENT"
+Disabled function
+rename_mage_module() {
+	find ./ -type f -readable -writable -exec sed -i "s/$1/$2/g" {} \;
+	shopt -s globstar && rename "s/$1/$2/" **;
+	find . -name "*$1*" -exec bash -c "mv $0 ${0/$1/$2}" {} \;
+}
+COMMENT
 ## Compile this as `source ~/.bashrc`
