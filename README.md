@@ -11,3 +11,9 @@ xR6TXbJAvYBg<br/>
 wMD9ynr7hFbJ<br/>
 
 http://idea.qinxi1992.cn
+
+No Country Redirect Google Urls
+https://www.google.com/?gws_rd=cr<br/>
+https://www.google.com/?gws_rd=cr,ssl<br/>
+https://www.google.com/ncr<br/>
+https://www.google.com/webhp?hl=en&gws_rd=cr<br/>
