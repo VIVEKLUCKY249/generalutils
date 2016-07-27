@@ -840,9 +840,6 @@ WHERE ISNULL(cpe.entity_id)
 
 #MySQL Dump Database and download the dumped file
 mysqldump -u user -pupasswd my-database | gzip > one.gz > two.gz > three.gz
-mysqldump -u bebito_bebito -pktu4ehkl5r3g bebito_bebito | gzip > /home/bebito/public_html/bebito_bebito_27072016.gz
-mysqldump -u bebito_bebito -pktu4ehkl5r3g bebito_bebito | bzip2 > /home/bebito/public_html/bebito_bebito_27072016.sql.bz2
 mysqldump -u <dbUsername> -p<dbPassword> <dbName> | gzip > /home/<hostUser>/public_html/<filename>.gz
 mysqldump -u <dbUsername> -p<dbPassword> <dbName> | bzip2 > /home/<hostUser>/public_html/<filename>.sql.bz2
 curl -O <http/https>://www.<hostname>.no/<filename>.gz
-curl -O http://www.bebitoshop.no/bebito_bebito_27072016.gz
