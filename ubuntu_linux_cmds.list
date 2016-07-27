@@ -718,3 +718,120 @@ ps aux | grep -i office | awk {'print $2'} | xargs kill -9
 kill -9 `pgrep -lf soffice.bin | awk {'print $1'}`
 pkill soffice.bin
 ps -e | grep writer
+
+Ubuntu cleanup ".DS_Store" and "tmp/" files from terminal
+cd
+find . -name ".DS_Store" -print0 | xargs -0 rm -rf
+sudo rm -r /tmp/*
+sudo rm -r ~/.cache/*
+sudo rm -rf ~/.thumbs/*
+sudo updatedb
+
+Go to any directory or command's main installation directory from command-line
+cd $(whereis <command_name> or <directory_name> or <component_name> | cut -d ' ' -f2 | xargs dirname)
+Note: It will take you to it's parent directory atmost.
+Examples:
+cd $(which node_modules | xargs dirname)
+cd $(whereis node_modules | cut -d ' ' -f2)
+cd $(whereis find | cut -d ' ' -f2 | xargs dirname)
+cd $(whereis node_modules | cut -d ' ' -f2 | xargs dirname)
+cd $(whereis bower | cut -d ' ' -f2 | xargs dirname
+
+Remove enerything before last occurring(Left to right) colon/semicolon
+echo <any_text_with_quotes> | sed 's/.*://'
+echo <any_text_with_quotes> | sed 's/.*;//'
+Examples
+echo 'hd_ma_prod_customer_ro:*:123456789:john.doe' | sed 's/.*://'
+echo 'hd_ma_prod_customer_ro:*:123456789;john.doe' | sed 's/.*://'
+
+Clear commandline history and exit the terminal
+cat /dev/null > ~/.bash_history && history -c && exit
+cat /dev/null > ~/.bash_history && history -w && exit
+cat /dev/null > ~/.bash_history && history -w && history -c && exit
+cat /dev/null > ~/.bash_history && history -c && history -w && exit
+Or
+history -d OFFSET && history -w
+
+Make a list of all files in the magento module directory recursively
+Goto module directory from terminal and then run below command
+find . -type f -follow -print > files.txt
+find . -type f -follow -print > modfiles.list
+find . -not -path '*/\.*'
+find . -not -path '*/\.*' -type f -name '*some text*'
+find . -type d -path '*/\.*' -prune -o -not -name '.*' -type f -name '*some text*' -print
+find . -type f -maxdepth 1 | grep -v '~$' > filenames.txt
+find . -type f | grep -v '~$' > filenames.txt
+find . -type f -maxdepth 1 -not -name '*~' > filenames.txt
+find . -type f -not -name '*~' > filenames.txt
+
+Rename files in current and it's subdirectories
+find . -name "*.{extension}" | xargs rename -v "s/oldname/newname/"
+find . -name "*.wav.gz" | xargs rename -v "s/abcd124*/abcd1234$1/"
+find . -name "*.xml" | xargs rename -v "s/firmInfo/firmainfo/"
+find . -name "*.xml" | xargs rename -v "s/Webexpressen*/Vivek$1/"
+
+Rename directories in current and it's subdirectories (Note: -n will just show the changes, but won't do it)
+find . -depth -type d -not -name '.' -exec rename -n 's/oldname/newname/' {} +
+find . -depth -type d -not -name '.' -exec rename -n 's/firmInfo/firmainfo/' {} +
+find . -depth -type d -not -name '.' -exec rename -n 's/(.*)/$1_foo/' {} +
+find . -depth -type d -not -name '.' -exec rename 's/firmInfo/firmainfo/' {} +
+find . -depth -type d -not -name '.' -exec rename 's/oldname/newname/' {} +
+find . -depth -type d -not -name '.' -exec rename 's/(.*)/$1_foo/' {} +
+
+Find and delete all files which has '~' in their names as suffix
+find . -type f -name '*~' -delete
+
+#Error 255 when sharing folder on Ubuntu
+The simplest solution would to be to add the stated lines,
+usershare owner only = false
+to the Global section of the smb.conf file by,
+sudo gedit /etc/samba/smb.conf
+then save the file and restart the samba service,
+sudo restart smbd
+Then try again to share the selected folder
+
+sudo chown -R $USER:www-data /var/www/html
+sudo chmod -R 0755 /var/www/html
+
+applyfullperms() {
+	sudo chown -R $USER:www-data /var/www/html/$1
+	sudo chmod -R 0755 /var/www/html/$1
+}
+
+#MySQL Find out which rows/records are corrupted in which tables of the SQL Integrity 1452 error
+
+example
+FK_CAT_PRD_FLAT_2_ENTT_ID_CAT_PRD_ENTT_ENTT_ID
+means
+SELECT a.entity_id FROM catalog_product_flat_2 AS a LEFT JOIN catalog_product_entity AS b ON a.entity_id = b.entity_id WHERE ISNULL(b.entity_id);
+
+FK_CAT_PRD_FLAT_1_ENTT_ID_CAT_PRD_ENTT_ENTT_ID
+means
+SELECT a.entity_id FROM catalog_product_flat_1 AS a LEFT JOIN catalog_product_entity AS b ON a.entity_id = b.entity_id WHERE ISNULL(b.entity_id);
+
+even better
+SELECT a.entity_id,b.entity_id FROM catalog_product_flat_1 AS a LEFT JOIN catalog_product_entity AS b ON a.entity_id = b.entity_id WHERE ISNULL(b.entity_id)
+SELECT a.entity_id,
+       b.entity_id
+FROM catalog_product_flat_1 AS a
+LEFT JOIN catalog_product_entity AS b ON a.entity_id = b.entity_id
+WHERE ISNULL(b.entity_id)
+
+DELETE a.*
+FROM catalog_product_flat_1 AS a
+LEFT JOIN catalog_product_entity AS b ON a.entity_id = b.entity_id
+WHERE ISNULL(b.entity_id)
+
+DELETE cpf1.*
+FROM catalog_product_flat_1 AS cpf1
+LEFT JOIN catalog_product_entity AS cpe ON cpf1.entity_id = cpe.entity_id
+WHERE ISNULL(cpe.entity_id)
+
+#MySQL Dump Database and download the dumped file
+mysqldump -u user -pupasswd my-database | gzip > one.gz > two.gz > three.gz
+mysqldump -u bebito_bebito -pktu4ehkl5r3g bebito_bebito | gzip > /home/bebito/public_html/bebito_bebito_27072016.gz
+mysqldump -u bebito_bebito -pktu4ehkl5r3g bebito_bebito | bzip2 > /home/bebito/public_html/bebito_bebito_27072016.sql.bz2
+mysqldump -u <dbUsername> -p<dbPassword> <dbName> | gzip > /home/<hostUser>/public_html/<filename>.gz
+mysqldump -u <dbUsername> -p<dbPassword> <dbName> | bzip2 > /home/<hostUser>/public_html/<filename>.sql.bz2
+curl -O <http/https>://www.<hostname>.no/<filename>.gz
+curl -O http://www.bebitoshop.no/bebito_bebito_27072016.gz
