@@ -116,6 +116,8 @@ fi
 alias ll='ls -lhA'
 alias clrscr='cat /dev/null > ~/.bash_history && history -c && history -w && clear'
 alias resetscr='cat /dev/null > ~/.bash_history && history -c && history -w && reset'
+#alias mkcd='_(){ mkdir $1; cd $1; }; _'
+alias fullpermi='_(){ sudo chmod -R 777 $1; }; _'
 alias dfdisk="df -Tha --total"
 alias wgetc="wget -c"
 alias ls='ls --color=auto'
@@ -136,7 +138,8 @@ listfiles() {
 }
 
 makelistoffiles() {
-	find . -type f -not -name '*~' > filenames.txt
+	fileName="${PWD##*/}";
+	find . -type f -not -name '*~' > "$fileName".txt
 }
 
 deletebakfiles() {
@@ -176,6 +179,19 @@ rename_mage_module() {
 	find . -name "*$1*" -exec bash -c "mv $0 ${0/$1/$2}" {} \;
 }
 
+compress_dir() {
+	NOW=$(date +"%m-%d-%Y");
+	CURRTIME=$(date +"%T");
+	CURRDATE=$(date +"%F");
+	#NOW="$CURRDATE_$CURRTIME";
+	sudo tar -cvjSf $1_$NOW.tar.bz2 $1/
+}
+
+timestamp() {
+	date +"%T"
+	date +"%F"
+}
+
 <<"COMMENT"
 Disabled function
 rename_mage_module() {
@@ -184,4 +200,5 @@ rename_mage_module() {
 	find . -name "*$1*" -exec bash -c "mv $0 ${0/$1/$2}" {} \;
 }
 COMMENT
+source /bin/custom_functions.sh
 ## Compile this as `source ~/.bashrc`
