@@ -17,3 +17,7 @@ https://www.google.com/?gws_rd=cr<br/>
 https://www.google.com/?gws_rd=cr,ssl<br/>
 https://www.google.com/ncr<br/>
 https://www.google.com/webhp?hl=en&gws_rd=cr<br/>
+
+Facebook Redriectless Secured Urls<br/><br/>
+https://www.facebook.com/?_rdr<br/>
+https://facebook.com/?_rdr<br/>
