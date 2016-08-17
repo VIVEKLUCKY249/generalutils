@@ -1,8 +1,0 @@
-## Remove all lines containing string1 or string2 and not containing string3
-^(?!.*string3).*\b(string1|string2)\b.*$
-
-For example in javascript file remove lines containing "console.log()" or "alert()" but not containing "window.alert()".
-Find: ^((?!.*window\.).*\b(console\.log|alert)\b.*)$
-Replace with: //\1
-or
-Replace with: 
