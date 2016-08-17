@@ -202,3 +202,17 @@ Find: (<type>skin_css<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
 Replace with: \1\2/css\3
 Find: (<type>skin_js<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
 Replace with: \1\2/js\3
+Or
+Find: (<type>skin_css<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: $1$2/css$3
+Find: (<type>skin_js<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: $1$2/js$3
+
+Css change images path(go 1 directory up) by find and replace:
+Find: "images/"
+Replace with: "../images/"
+
+Remove trailing spaces before newlines in effective way:
+Note: turn on "Multi-line matching" in your editor for this to work
+Find: [^\S\r\n]+$
+Replace with: 
