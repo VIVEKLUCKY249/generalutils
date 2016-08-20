@@ -22,7 +22,7 @@ Facebook Redriectless Secured Urls<br/><br/>
 https://www.facebook.com/?_rdr<br/>
 https://facebook.com/?_rdr<br/>
 
-Add Error Handler files just after the software or framework completes execution.
+Add Error Handler files for debugging purposes, just after the software or framework completes execution.
 
-For example require/include `errorHandler2.php` once after `Mage::run($mageRunCode, $mageRunType);` line in `index.php`,
+For example require/include `errorHandler2.php` or `errorHandler2_20082016.php` once after `Mage::run($mageRunCode, $mageRunType);` line in `index.php`,
 if your software is Magento.
