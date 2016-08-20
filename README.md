@@ -23,4 +23,6 @@ https://www.facebook.com/?_rdr<br/>
 https://facebook.com/?_rdr<br/>
 
 Add Error Handler files just after the software or framework completes execution.
-for example require 'errorHandler2.php' after `Mage::run($mageRunCode, $mageRunType);` line in `index.php` if your software is Magento.
+
+For example require/include `errorHandler2.php` once after `Mage::run($mageRunCode, $mageRunType);` line in `index.php`,
+if your software is Magento.
