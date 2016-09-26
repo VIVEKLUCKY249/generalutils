@@ -81,4 +81,29 @@ public function _afterLoad() {
 }
 ## This magic method is called automatically by Magento system.
 # Function to debug collections which can't be debugged the usual way, ends....
+
+# Convert csv to associative array start:
+public function csv2AssocArray($filePath) {
+		$array = $fields = array(); $i = 0;
+		$handle = @fopen($filePath, "r");
+		if ($handle) {
+			while (($row = fgetcsv($handle, 4096)) !== false) {
+				if (empty($fields)) {
+					$fields = $row;
+					continue;
+				}
+				foreach ($row as $key => $value) {
+					#$array[$i][$fields[$key]] = $value;
+					$array[$row[0]][$fields[$key]] = $value;
+				}
+				$i++;
+			}
+			if (!feof($handle)) {
+				echo "Error: unexpected fgets() fail\n";
+			}
+			fclose($handle);
+		}
+		return $array;
+	}
+# Convert csv to associative array finish....
 ?>
