@@ -196,6 +196,21 @@ compress_dir() {
 	sudo tar -cvjSf $1_$NOW.tar.bz2 $1/
 }
 
+basicMageModTree() {
+	mkdir -p app/code/{local,community}
+	mkdir -p app/etc/modules/
+	if [[ $1 = "frontend" ]]; then
+		mkdir -p app/design/frontend/base/default/layout
+		mkdir -p app/design/frontend/base/default/template
+		mkdir -p app/design/frontend/rwd/default/layout
+		mkdir -p app/design/frontend/rwd/default/template
+	fi
+	if [[ $2 = "backend" ]]; then
+		mkdir -p app/design/adminhtml/default/default/layout
+		mkdir -p app/design/adminhtml/default/default/template
+	fi
+}
+
 timestamp() {
 	date +"%T"
 	date +"%F"
