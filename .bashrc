@@ -118,6 +118,9 @@ alias clrscr='cat /dev/null > ~/.bash_history && history -c && history -w && cle
 alias resetscr='cat /dev/null > ~/.bash_history && history -c && history -w && reset'
 #alias mkcd='_(){ mkdir $1; cd $1; }; _'
 alias fullpermi='_(){ sudo chmod -R 777 $1; }; _'
+alias importmydblocal='_(){ mysql -u root -p $1 < $2; }; _'
+alias fullpermiweb='_(){ sudo chmod -R 777 /var/www/html/$1; }; _'
+alias listbyname='_(){ find . -iname $1 -exec readlink -f {} + | tee ./$1.txt; }; _'
 alias dfdisk="df -Tha --total"
 alias wgetc="wget -c"
 alias ls='ls --color=auto'
@@ -130,6 +133,12 @@ replinallfiles() {
 rendirs() {
 	shopt -s globstar
 	rename "s/$1/$2/" **
+}
+
+findinfiles() {
+	needle=$1;
+	haystack=/var/www/html/$2;
+	grep -rnl -F --include=*.{php,phtml,xml,css,html} $needle $haystack;
 }
 
 listfiles() {
@@ -150,6 +159,7 @@ deletebakfiles() {
 clearlocal() {
 	rm -rf /var/www/html/$1/var/cache/*
 	#rm -rf /var/www/html/$1/var/session/*
+	#rm -rf /var/www/html/$1/var/import/*
 	rm -R -f /var/www/html/$1/media/catalog/product/cache
 	rm -rf /var/www/html/$1/var/debug/*
 	rm -rf /var/www/html/$1/var/log/*
@@ -187,9 +197,41 @@ compress_dir() {
 	sudo tar -cvjSf $1_$NOW.tar.bz2 $1/
 }
 
+basicMageModTree() {
+	mkdir -p app/code/{local,community}
+	mkdir -p app/etc/modules/
+	if [[ $1 = "frontend" ]]; then
+		mkdir -p app/design/frontend/base/default/layout
+		mkdir -p app/design/frontend/base/default/template
+		mkdir -p app/design/frontend/rwd/default/layout
+		mkdir -p app/design/frontend/rwd/default/template
+	fi
+	if [[ $2 = "backend" ]]; then
+		mkdir -p app/design/adminhtml/default/default/layout
+		mkdir -p app/design/adminhtml/default/default/template
+	fi
+}
+
 timestamp() {
 	date +"%T"
 	date +"%F"
+}
+
+remSpaceFNames() {
+	rename -n "s/ \(copy\)/_dup_$(date +%d%m%Y)/" *
+	rename "s/ \(copy\)/_dup_$(date +%d%m%Y)/" *
+}
+
+mageOverrider() {
+	# Argument should full path to file including fileName
+	argPath=$1;
+	parentdir="$(dirname "$1")";
+	finalPath=${parentdir/core/local};
+	mkdir -p "$finalPath";
+	#cp -v "$argPath" "$finalPath";
+	cp "$argPath" "$finalPath";
+	echo "Directory structure built and file copied to local!!!";
+	echo -n "$finalPath" | xclip -selection c;
 }
 
 <<"COMMENT"
