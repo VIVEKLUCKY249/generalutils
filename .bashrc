@@ -234,6 +234,32 @@ mageOverrider() {
 	echo -n "$finalPath" | xclip -selection c;
 }
 
+lastnhist() {
+	if [ -e "$HISTFILE" ] ; then
+		tail -n $1 "$HISTFILE" > ff && mv ff "$HISTFILE"
+	fi
+}
+
+clearCacheLocalMage1x() {
+	cd /var/www/html/$1
+	php -r 'require "app/Mage.php"; Mage::app()->cleanCache();'
+	php -r 'require "app/Mage.php"; Mage::app()->getCacheInstance()->flush();'
+	# php -a 'require "app/Mage.php"; Mage::app()->cleanCache();'
+	# php -a 'require "app/Mage.php"; Mage::app()->getCacheInstance()->flush();'
+	cd ~
+}
+
+reIndexMage1x() {
+	cd /var/www/html/$1
+	php shell/indexer.php --reindexall
+	cd ~
+}
+
+deleteAllByName() {
+	find /var/www/html/$1/* -depth -name "$2*" -type f -exec rm {} \;
+	find /var/www/html/$1/* -depth -name "$2" -type d -exec rm -rf "{}" \;
+}
+
 <<"COMMENT"
 Disabled function
 rename_mage_module() {
