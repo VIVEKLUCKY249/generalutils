@@ -1057,3 +1057,11 @@ clearCacheLocalMage1x() {
 	#(Interactive mode) php -a 'require "app/Mage.php"; Mage::app()->getCacheInstance()->flush();'
 	cd ~
 }
+
+Find and delete all folders and files by name
+for files:
+find /path/to/destination/dir/* -depth -name "<searchterm>*" -type f -exec rm {} \;
+find /var/www/html/magento_1924/* -depth -name "testimonials*" -type f -exec rm {} \;
+for directories:
+find /path/to/destination/dir/* -depth -name "<searchterm>" -type d -exec rm -rf "{}" \;
+find /var/www/html/magento_1924/* -depth -name "testimonials" -type d -exec rm -rf "{}" \;
