@@ -1,0 +1,265 @@
+Search modes regex only:
+
+Replace multiple white spaces with any character (eg. |):
+	Find: [ \t]{2,}
+	Replace with: "|" (without quotes)
+
+Remove everything after 2nd occurrence of character(eg. ,):
+	Find: (.*?,.*?),.* or Find: ([^,\n]+,[^,\n]+),.*
+	Replace with: \1
+
+Place quotes("") around numbers only:
+	Find: (\d+)
+	Replace with: "\1"
+
+Match only words that have spaces between them:
+	Find: ((\w+) (\w+))
+
+Match any word that may have spaces:
+	Find: ^\w+( +\w+)*$
+	Find: (\D+( +\D+)*)
+
+Place quotes around only words(may have spaces)
+	Find: ([a-zA-Z][a-zA-Z ]+)
+	Replace with: "\1"
+
+Replace newline with comma and linebreak:
+	Find: \n
+	Replace with: ,\n
+
+Remove any html tag with it's contents(eg label):
+	Find "<label[^>]*>[\n\t\r]*|<\/label[^>]*>" or "<label.*?>(.|\s)*?</label>"
+	Replace with: ""
+
+Comment any html tag with it's contents(eg label):
+	Find "(<label[^>]*>[\n\t\r]*|<\/label[^>]*>)" or "(<label.*?>(.|\s)*?</label>)"
+	Replace with: "<!--\1-->"
+
+Replace multiple spaces with single space:
+	Find: [\r\n]{2,}
+	Replace with: \n
+
+Remove multiple blank lines or empty lines:
+	Find: ^\s*$ or ^[ \t]*$\r?\n or [\t ]+$ or ^$(empty/null lines) or ^\s+$
+	Replace with:
+
+Remove multiple & trailing spaces (Using positive lookahead):
+	Find: ^ *|(?<= ) | *$
+	Replace with:
+
+Replace multiple spaces with single space:
+	Find: \s\s+ or \s+(?=\s)
+	Replace with: \s
+
+Remove unnecessary line feeds:
+	Find: \r or \x0D
+	Replace with:
+
+Replace multiple spaces with tab:
+	Find: ^\s{<any_number>}
+	Replace with: \t
+	Example: ^\s{4} with \t
+
+Remove multiple spaces around '=>':
+	Find: \s+(\s=>\s)\s+ or \s*(\s=>\s)\s*
+	Replace with: \1
+
+Replace module name multiple files:
+	Find: (thisweekmeal)\b or (ThisWeekMeal)\b or (thisweekmeal)_ or (ThisWeekMeal)_
+	Replace with: \1s or \1s_
+
+Replace the occurrence on only specific word:
+	Find: ([^a-z])(<word>)([^a-z])
+	Replace with: \1\2<additional text>\3
+example:
+	Find: ([^a-z])(ThisWeekMeals)([^a-z])
+	Replace with: \1Thisweekmeals\3
+Output: Vikass or _Vikass_
+
+Replace inside xml tags:
+	Find: "<<tagname>>[\s\S]*?<\/<tagname>>"
+	Replace with: <desired value>
+example:
+	Find: (<username>)[\s\S]*?(<\/username>)
+	Replace with: \1<![CDATA[psuser]]\2
+example:
+	Find: (<password>)[\s\S]*?(<\/password>)
+	Replace with: \1<![CDATA[internet2014]]\2
+example:
+	Find: (<dbname>)[\s\S]*?(<\/dbname>)
+	Replace with: \1<![CDATA[magento_cookpack]]\2
+
+Comment all lines having a specific text:
+	Find: ^(.*(products-grid).*)$
+	Replace with: \\*\1*\\
+
+Match any xml tag with CDATA:
+	Find: <\w+><!\[CDATA\[.*?\]\]></\w+>
+	example: <username><!\[CDATA\[.*?\]\]></username>
+	example: <password><!\[CDATA\[.*?\]\]></password>
+
+For indentation, find 4 spaces and replace it with tab:
+	Find: ^ {4}(\w) or ^[ {4}]+([^\s])
+	Replace with: \t\1
+
+Find any line not containing <word/character>:
+	Find: ^((?!<word/character>).)*$
+	example: ^((?!product-name).)*$
+
+Replace specific word in content between tags:
+		Find: ( )(\bthisweekmeals\b)( )
+		Replace with: \1This Week Meals\3
+
+Remove everything before <substring> on same line only:
+	Find: ^.*(?=<substring>/)
+	Replace with:
+example:
+	Find: ^.*(?=app/)
+	Replace with:
+
+	or
+
+	Find what: ^.*(<substring>)
+	Replace with: \1
+
+Remove extra spaces before '=' or '=>' sign in code:
+	Find: \s+(=) or \s+(=>)
+	Replace with:  \1
+
+Remove extra spaces after '=' or '=>' sign in code:
+	Find: (=)\s+ or (=>)\s+
+	Replace with: \1
+
+Find and replace xml tag values:
+<action method="addItem">(\s+)<type>skin_css</type>(\s+)<name>calendar/(.*)</name>(\s+)</action>
+<action method="addItem">(\s+)<type>skin_js</type>(\s+)<name>calendar/(.*)</name>(\s+)
+<action method="addItem">(\s+)(<type>)skin_js(</type>)(\s+)<name>calendar/(.*)</name>(\s+)
+<action method="addItem">(\s+)(<type>)skin_js(</type>)(\s+)<name>calendar/(.*)</name>
+
+Find and Remove singleline comments(lines starting with '//' or '##' or '#')
+	Find: ^\s*//.*$ or ^\s*##.*$ or ^\s*#.*$
+	Replace with:
+
+Remove trailing spaces:
+Find: [ \t]+$
+Replace with:
+
+Find out which functions in PHP/Javascript file are being called during script execution
+
+Find: function\s+(.*?)\)\s*{
+Replace with: function \1\) {\n\tMage::log\(Varien_Debug::backtrace\(true, false\), null, 'mpdfDebug.log'\);
+Replace with: function \1\) {\n\techo '<pre/>';print_r\('Testing'\);exit;
+Replace with: function \1\) {\n\t\techo '<pre/>';print_r\('Testing'\);exit;
+Replace with: function \1\) {\n\t\techo '<pre/>';print_r\(__FUNCTION__);
+Replace with: function \1\) {\n\t\techo '<pre/>';print_r\(__METHOD__);
+Replace with: function \1\) {\n\t\tMage::helper('api_import')->getCallingFunc();
+OR
+Replace with: function \1\) {\n\techo Varien_Debug::backtrace\(true, true\); exit;
+OR(Javascript debugging)
+Replace with: function \1\) {\n\tvar myName = arguments.callee.toString();\n\tmyName = myName.substr('function '.length);\n\tmyName = myName.substr(0, myName.indexOf('('));\n\tconsole.log(myName);\n
+OR
+Replace with: function \1\) {\n\tvar myName = arguments.callee.toString();\n\tmyName = myName.substr('function '.length);\n\tmyName = myName.substr(0, myName.indexOf('('));\n\talert(myName);\n
+
+Delete all lines having/containing a specific word
+Find: [^\n]*<word>[^\n]*\n?
+Replace with:
+example: [^\n]*myName[^\n]*\n?
+
+Create module file path from Class name in Magento 1.9.x/1.x versions
+Step 1 Non Regex replace mode
+Find: "_"
+Replace with: "/"
+Step 2 Regex replace mode
+Find: "^(.+)$"
+Replace with: "public_html/app/code/local/\1" (For live site)
+Or
+Replace with: "app/code/local/\1" (For local site)
+
+Take backup of file before using regexes
+Find all occurrence of "alert" or "console.log" functions but not "window.alert" function and comment them out
+Find: ^((?!.*window\.).*\b(console\.log|alert\().)*$ or ^((?!.*window\.).*\b(console\.log|alert\().*)$
+Replace with: //\1
+
+Append to start of every line in file
+Find: ^(.+)$
+Replace with: ./\1
+
+Find all lines containing <word>:
+Find: ^.*\b<word>\b.*$
+Replace with: 
+Example: ^.*\bMage::log\b.*$
+
+Find all lines containing Javascript like "function" declaration statements:
+Find: function.*{|\w* \= function.*{|jquery.*{
+OR
+(?:(\w+(?:\.\w+)*)\s*=\s*)?function\s*(.*?)\(
+
+Find all lines having ~ (generally in case of backup files path) and remove them
+Find: ^(.*)~$
+Replace with:
+
+Find multiple newlines and replace them with single newline
+Find: \n+
+Replace with: \n
+Or
+Find: [\n\r]+
+Replace with: \n
+Or
+Find: [\r\n]+
+Replace with: \n
+
+Find every specific tag like (<type>...</type>) and replace in content of it's adjacent(<name>...</name>) tag.
+Find: (<type>skin_css<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: \1\2/css\3
+Find: (<type>skin_js<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: \1\2/js\3
+Or
+Find: (<type>skin_css<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: $1$2/css$3
+Find: (<type>skin_js<\/type>[\s]+<name>)(news)(\/[a-zA-Z0-9_\-.]+<\/name>)
+Replace with: $1$2/js$3
+
+Css change images path(go 1 directory up) by find and replace:
+Find: "images/"
+Replace with: "../images/"
+
+Remove trailing spaces before newlines in effective way:
+Note: turn on "Multi-line matching" in your editor for this to work
+Find: [^\S\r\n]+$
+Replace with: 
+
+Match all the function calls inside PHP/JS/Python script
+Find: (?:\$[A-Za-z_]\w*->|self::|parent::)[A-Za-z_]\w*\([^)]*\)
+Or
+Find: ([a-zA-Z0-9]+)\\[(([a-zA-Z0-9]+)(,)(([a-zA-Z0-9])+)*?)*?\\]
+Or
+Find: [a-z_A-Z]+\([^\)]*\)(\.[^\)]*\))?
+Or
+Find: MyFunction\s*\(\s*"(.*?)\"\s*\)\s*;
+
+Match function arguments inside PHP/JS/Python script
+Find: \(([\w,]*)\)
+Or
+Find: (?<=[\w]*\()[\w,]*(?=\))
+
+Find and remove trailing spaces but keep entire blank lines
+Find: (?<=\S)[\t ]+$
+Replace with:
+
+Find and remove trailing spaces but keep entire blank lines
+Find: [^\S\r\n]+$
+Replace with:
+
+Remove all single-line comments from PHP script
+Find: ^\s*(\/\/~?|#).*
+OR
+Find: ^\s*(\/\/|#).*[\n\r] or ^\s*(\/\/~?|#).*[\n\r]
+Replace with:
+
+Remove all comments from xml file
+Find: (?s)<!--.*?-->[\n\r] or <!--[\s\S]*?-->
+Replace with:
+
+Remove all spaces in lines in CSS Files
+Find: ^ *| +(?= *\S)
+Replace with:
