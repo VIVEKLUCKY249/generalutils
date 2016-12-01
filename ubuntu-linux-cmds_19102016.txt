@@ -738,34 +738,17 @@ sudo add-apt-repository ppa:webupd8team/atom
 sudo apt-get update
 sudo apt-get install atom
 
-
- 36
-down vote
-
-
 If you really want to install Chrome (not Chromium) using apt-get it's possible as explained here:
-
     Add google repository to your sources, that is, create a new file under /etc/apt/sources.list.d with the following cotents:
-
     deb http://dl.google.com/linux/chrome/deb/ stable main
-
     Get repository key:
-
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
     Update your sources:
-
     sudo apt-get update
-
     And install the package:
-
     sudo apt-get install google-chrome-stable
-
 Note: instead of google-chrome-stable you can also install either google-chrome-beta or google-chrome-unstable packages from the same repository.
-
-
 Or
-
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update
