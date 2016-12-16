@@ -1,0 +1,75 @@
+## Install Magento 2.x from Terminal/CommandPrompt
+php bin/magento setup:install --base-url=http://192.168.88.254/testmage2010 --db-host=localhost --db-name=testmage2010 --db-user=root --db-password=root --admin-firstname=Vivek --admin-lastname=Shah --admin-email=viveklucky1848@gmail.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --cleanup-database --sales-order-increment-prefix="ORD$" --session-save=db --use-rewrites=1
+
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento setup:install --base-url=http://192.168.88.254/testmage2010 --db-host=localhost --db-name=testmage2010 --db-user=root --db-password=root --admin-firstname=Vivek --admin-lastname=Shah --admin-email=viveklucky1848@gmail.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --cleanup-database --sales-order-increment-prefix="ORD$" --session-save=db --use-rewrites=1
+
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento setup:install --base-url=http://192.168.88.254/testmage212 --db-host=localhost --db-name=testmage212 --db-user=root --db-password=root --admin-firstname=Vivek --admin-lastname=Shah --admin-email=viveklucky1848@gmail.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=Asia/Kolkata --cleanup-database --sales-order-increment-prefix="ORD$" --session-save=db --use-rewrites=1
+
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento setup:install --base-url=http://192.168.88.254/testmage212 --db-host=localhost --db-name=testmage212 --db-user=root --db-password=root --admin-firstname=Vivek --admin-lastname=Shah --admin-email=viveklucky1848@gmail.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=Asia/Kolkata --cleanup-database --sales-order-increment-prefix="ORD$" --session-save=files --session-save_path=var/session --use-rewrites=1
+
+## Deploy static content and files
+php bin/magento -vvv setup:static-content:deploy
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento -vvv setup:static-content:deploy
+OR
+# Change in environment path and set php as C:\UwAmp\bin\php\php-5.6.18\ then run the command as:
+php -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento -vvv setup:static-content:deploy
+
+## Re-index all indexes manually
+php bin/magento indexer:reindex
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento -vvv indexer:reindex
+
+## Clear and Flush all caches
+php bin/magento cache:flush
+php bin/magento cache:clean
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento -vvv cache:clean
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento -vvv cache:flush
+
+## Exporting the configuration for production mode only
+php bin/magento app:config:dump
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento app:config:dump
+
+## Run magento cron job manually
+php bin/magento cron:run
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento cron:run
+
+## Compiles all non-existent proxies and factories; and pre-compiles class definitions, inheritance information, and plugin definitions for one store and website / Magento compile system/setup
+php bin/magento setup:di:compile
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento setup:di:compile
+
+## Module dependencies, circular dependencies, and Magento framework dependencies
+php bin/magento info:dependencies:{show-modules|show-modules-circular|show-framework}e
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento info:dependencies:{show-modules|show-modules-circular|show-framework}e
+
+## Display current deployment mode
+php bin/magento deploy:mode:show
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento deploy:mode:show
+
+## Change modes
+php bin/magento deploy:mode:set {mode}
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento deploy:mode:set {mode}
+
+## Setup upgrade post module installation/configuration/editing
+php bin/magento setup:upgrade
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento setup:upgrade
+OR
+php -f bin/magento setup:upgrade
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini -f bin/magento setup:upgrade
+
+## Enable/Disable any module
+php bin/magento module:disable -f Magento_Wishlist --clear-static-content
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento module:disable -f Magento_Wishlist --clear-static-content
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento module:disable -f MagePsycho_Easypathhints --clear-static-content
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento module:enable -f MagePsycho_Easypathhints --clear-static-content
+OR
+php bin/magento module:disable --clear-static-content MagePsycho_Easypathhints
+C:\UwAmp\bin\php\php-5.6.18\php.exe -c C:\UwAmp\bin\php\php-5.6.18\php_uwamp.ini bin/magento module:enable --clear-static-content MagePsycho_Easypathhints
+
+MySQL Truncate Magento Session relevant tables
+mysql -h dbserver_hostname -e "TRUNCATE TABLE schema_name.table_name"
+mysql -h localhost -e "TRUNCATE TABLE testmage212.session"
+C:\UwAmp\bin\database\mysql-5.7.11\bin\mysql.exe -h localhost -u root -proot "TRUNCATE TABLE testmage212.session"
+mysql -h localhost -u root -proot testmage212 -e "TRUNCATE TABLE testmage212.session"
+
+Remove al static content folders
+for /d %G in ("X:\A*","Y:\Whatever\B*","Z:\C?D") do rd /s /q "%~G"
+for /d %G in ("var\cache","var\composer_home","var\generation","var\page_cache", "var\view_preprocessed","var\log") do rd /s /q "%~G"

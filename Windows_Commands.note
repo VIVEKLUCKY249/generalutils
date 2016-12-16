@@ -1,0 +1,24 @@
+## Remove a dorectory completely
+RD /S /Q "Full Path of Folder"
+## OR
+rd /s /q "Full Path of Folder"
+### Example
+rd /s /q "C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40"
+rmdir /f /s /q "C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40"
+del /S /F /AH your_directory
+del /S /F /AH /Q "C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40"
+del /s /f /ah /q "C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40"
+del /s /f /ah /q "C:\UwAmp\www\testmage2010"
+forfiles /P "C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40" /M * /C "cmd /c if @isdir==FALSE del @file"
+FOR /D %%p IN ("C:\Temp\*.*") DO rmdir "%%p" /s /q
+FOR /D %%p IN ("C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40\*.*") DO rmdir "%%p" /s /q
+
+Ensure specified path/directory is empty
+dir \full\path /a
+dir \C:\UwAmp\www\Magento-CE-2.1.2_sample_data-2016-10-11-11-31-40 /a
+
+-- MySQL Commands
+-- Remove database completely
+mysqladmin -u[username] -p[password] drop [database]
+mysqladmin -uroot -proot drop testmage2010
+C:\UwAmp\bin\database\mysql-5.7.11\bin\mysqladmin.exe -uroot -proot drop testmage2010
